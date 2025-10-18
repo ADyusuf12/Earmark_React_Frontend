@@ -1,0 +1,7 @@
+:root {
+  --primary-color: #1e3a8a;   /* Deep navy blue */
+  --accent-color: #3b82f6;    /* Bright sky blue */
+  --neutral-dark: #111827;    /* Charcoal/black for text */
+  --neutral-light: #f9fafb;   /* Light gray background */
+  --white: #ffffff;
+}
