@@ -1,6 +1,7 @@
 import { useState, useContext } from "react";
 import api from "../api/axios";
 import { AuthContext } from "../context/AuthContext";
+import "../styles/auth.css";
 
 function LoginPage() {
   const { login } = useContext(AuthContext);
@@ -32,14 +33,16 @@ function LoginPage() {
   };
 
   return (
-    <div>
-      <h1>Login</h1>
-      <form onSubmit={handleSubmit}>
-        <input name="email" type="email" placeholder="Email" onChange={handleChange} /><br />
-        <input name="password" type="password" placeholder="Password" onChange={handleChange} /><br />
-        <button type="submit">Login</button>
-      </form>
-      <p>{message}</p>
+    <div className="auth-wrapper">
+      <div className="auth-container">
+        <h1>Login</h1>
+        <form onSubmit={handleSubmit}>
+          <input name="email" type="email" placeholder="Email" onChange={handleChange} /><br />
+          <input name="password" type="password" placeholder="Password" onChange={handleChange} /><br />
+          <button type="submit">Login</button>
+        </form>
+        <p>{message}</p>
+      </div>
     </div>
   );
 }

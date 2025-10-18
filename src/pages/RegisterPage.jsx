@@ -1,5 +1,6 @@
 import { useState } from "react";
 import api from "../api/axios";
+import "../styles/auth.css";
 
 function RegisterPage() {
   const [form, setForm] = useState({
@@ -40,33 +41,35 @@ function RegisterPage() {
   };
 
   return (
-    <div>
-      <h1>Register</h1>
-      <form onSubmit={handleSubmit}>
-        <input name="username" placeholder="Username" onChange={handleChange} /><br />
-        <input name="email" type="email" placeholder="Email" onChange={handleChange} /><br />
-        <input name="password" type="password" placeholder="Password" onChange={handleChange} /><br />
-        <input
-          name="passwordConfirmation"
-          type="password"
-          placeholder="Confirm Password"
-          onChange={handleChange}
-        /><br />
+    <div className="auth-wrapper">
+      <div className="auth-container">
+        <h1>Register</h1>
+        <form onSubmit={handleSubmit}>
+          <input name="username" placeholder="Username" onChange={handleChange} /><br />
+          <input name="email" type="email" placeholder="Email" onChange={handleChange} /><br />
+          <input name="password" type="password" placeholder="Password" onChange={handleChange} /><br />
+          <input
+            name="passwordConfirmation"
+            type="password"
+            placeholder="Confirm Password"
+            onChange={handleChange}
+          /><br />
 
-        <label>
-          Account Type:
-          <select name="accountType" value={form.accountType} onChange={handleChange}>
-            <option value="customer">Customer</option>
-            <option value="agent">Agent</option>
-            <option value="developer">Developer</option>
-            <option value="owner">Owner</option>
-          </select>
-        </label>
-        <br />
+          <label>
+            Account Type:
+            <select name="accountType" value={form.accountType} onChange={handleChange}>
+              <option value="customer">Customer</option>
+              <option value="agent">Agent</option>
+              <option value="developer">Developer</option>
+              <option value="owner">Owner</option>
+            </select>
+          </label>
+          <br />
 
-        <button type="submit">Register</button>
-      </form>
-      <p>{message}</p>
+          <button type="submit">Register</button>
+        </form>
+        <p>{message}</p>
+      </div>
     </div>
   );
 }
