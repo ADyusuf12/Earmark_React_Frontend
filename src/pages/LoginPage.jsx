@@ -1,6 +1,7 @@
 import { useState, useContext } from "react";
 import api from "../api/axios";
 import { AuthContext } from "../context/AuthContext";
+import "../styles/auth.css";
 
 function LoginPage() {
   const { login } = useContext(AuthContext);
@@ -21,25 +22,40 @@ function LoginPage() {
         },
       });
 
-      console.log("Response:", res.data);
-
-      login(res.data.access, res.data.user); // 👈 store in context
+      login(res.data.access, res.data.user);
       setMessage("Logged in as " + res.data.user.username);
     } catch (err) {
-      console.log("Error response:", err.response);
       setMessage("Error: " + (err.response?.data?.error || "Login failed"));
     }
   };
 
   return (
-    <div>
-      <h1>Login</h1>
-      <form onSubmit={handleSubmit}>
-        <input name="email" type="email" placeholder="Email" onChange={handleChange} /><br />
-        <input name="password" type="password" placeholder="Password" onChange={handleChange} /><br />
-        <button type="submit">Login</button>
-      </form>
-      <p>{message}</p>
+    <div className="auth-wrapper">
+      <div className="auth-container">
+        <h1>Login</h1>
+        <form onSubmit={handleSubmit}>
+          <input
+            className="auth-input"
+            name="email"
+            type="email"
+            placeholder="Email"
+            value={form.email}
+            onChange={handleChange}
+          />
+          <input
+            className="auth-input"
+            name="password"
+            type="password"
+            placeholder="Password"
+            value={form.password}
+            onChange={handleChange}
+          />
+          <button className="auth-button" type="submit">
+            Login
+          </button>
+        </form>
+        {message && <p>{message}</p>}
+      </div>
     </div>
   );
 }
