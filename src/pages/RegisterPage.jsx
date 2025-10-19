@@ -8,7 +8,7 @@ function RegisterPage() {
     email: "",
     password: "",
     passwordConfirmation: "",
-    accountType: "customer", // default
+    accountType: "customer",
   });
   const [message, setMessage] = useState("");
 
@@ -18,6 +18,11 @@ function RegisterPage() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (form.password !== form.passwordConfirmation) {
+      setMessage("Passwords do not match");
+      return;
+    }
+
     try {
       const res = await api.post("/register", {
         user: {
@@ -26,16 +31,19 @@ function RegisterPage() {
           password: form.password,
           password_confirmation: form.passwordConfirmation,
           account_type: form.accountType,
-        }
+        },
       });
 
-      console.log("Response:", res.data);
-
-      setMessage("Registered as " + res.data.user.username + " (" + res.data.profile.account_type + ")");
+      setMessage(
+        "Registered as " +
+          res.data.user.username +
+          " (" +
+          res.data.profile.account_type +
+          ")"
+      );
       localStorage.setItem("token", res.data.access);
       localStorage.setItem("user", JSON.stringify(res.data.user));
     } catch (err) {
-      console.log("Error response:", err.response);
       setMessage("Error: " + (err.response?.data?.error || "Registration failed"));
     }
   };
@@ -45,30 +53,53 @@ function RegisterPage() {
       <div className="auth-container">
         <h1>Register</h1>
         <form onSubmit={handleSubmit}>
-          <input name="username" placeholder="Username" onChange={handleChange} /><br />
-          <input name="email" type="email" placeholder="Email" onChange={handleChange} /><br />
-          <input name="password" type="password" placeholder="Password" onChange={handleChange} /><br />
           <input
+            className="auth-input"
+            name="username"
+            placeholder="Username"
+            value={form.username}
+            onChange={handleChange}
+          />
+          <input
+            className="auth-input"
+            name="email"
+            type="email"
+            placeholder="Email"
+            value={form.email}
+            onChange={handleChange}
+          />
+          <input
+            className="auth-input"
+            name="password"
+            type="password"
+            placeholder="Password"
+            value={form.password}
+            onChange={handleChange}
+          />
+          <input
+            className="auth-input"
             name="passwordConfirmation"
             type="password"
             placeholder="Confirm Password"
+            value={form.passwordConfirmation}
             onChange={handleChange}
-          /><br />
-
-          <label>
-            Account Type:
-            <select name="accountType" value={form.accountType} onChange={handleChange}>
-              <option value="customer">Customer</option>
-              <option value="agent">Agent</option>
-              <option value="developer">Developer</option>
-              <option value="owner">Owner</option>
-            </select>
-          </label>
-          <br />
-
-          <button type="submit">Register</button>
+          />
+          <select
+            className="auth-input"
+            name="accountType"
+            value={form.accountType}
+            onChange={handleChange}
+          >
+            <option value="customer">Customer</option>
+            <option value="agent">Agent</option>
+            <option value="developer">Developer</option>
+            <option value="owner">Owner</option>
+          </select>
+          <button className="auth-button" type="submit">
+            Register
+          </button>
         </form>
-        <p>{message}</p>
+        {message && <p>{message}</p>}
       </div>
     </div>
   );

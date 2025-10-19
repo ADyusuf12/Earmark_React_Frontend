@@ -22,12 +22,9 @@ function LoginPage() {
         },
       });
 
-      console.log("Response:", res.data);
-
-      login(res.data.access, res.data.user); // 👈 store in context
+      login(res.data.access, res.data.user);
       setMessage("Logged in as " + res.data.user.username);
     } catch (err) {
-      console.log("Error response:", err.response);
       setMessage("Error: " + (err.response?.data?.error || "Login failed"));
     }
   };
@@ -37,11 +34,27 @@ function LoginPage() {
       <div className="auth-container">
         <h1>Login</h1>
         <form onSubmit={handleSubmit}>
-          <input name="email" type="email" placeholder="Email" onChange={handleChange} /><br />
-          <input name="password" type="password" placeholder="Password" onChange={handleChange} /><br />
-          <button type="submit">Login</button>
+          <input
+            className="auth-input"
+            name="email"
+            type="email"
+            placeholder="Email"
+            value={form.email}
+            onChange={handleChange}
+          />
+          <input
+            className="auth-input"
+            name="password"
+            type="password"
+            placeholder="Password"
+            value={form.password}
+            onChange={handleChange}
+          />
+          <button className="auth-button" type="submit">
+            Login
+          </button>
         </form>
-        <p>{message}</p>
+        {message && <p>{message}</p>}
       </div>
     </div>
   );
