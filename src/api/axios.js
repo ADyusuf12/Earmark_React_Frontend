@@ -8,4 +8,17 @@ const api = axios.create({
   },
 });
 
+export const saveListing = (listingId, token) =>
+  api.post("/saved_listings",
+    { listing_id: listingId },
+    {
+      headers: { Authorization: `Bearer ${token}` },
+    }
+  );
+
+export const unsaveListing = (listingId, token) =>
+  api.delete(`/saved_listings/${listingId}`, {
+    headers: { Authorization: `Bearer ${token}` },
+  });
+
 export default api;
