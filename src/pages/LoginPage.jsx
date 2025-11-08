@@ -1,4 +1,5 @@
 import { useState, useContext } from "react";
+import { useNavigate } from "react-router-dom";
 import api from "../api/axios";
 import { AuthContext } from "../context/AuthContext";
 import "../styles/auth.css";
@@ -7,6 +8,7 @@ function LoginPage() {
   const { login } = useContext(AuthContext);
   const [form, setForm] = useState({ email: "", password: "" });
   const [message, setMessage] = useState("");
+  const navigate = useNavigate(); // hook for navigation
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -22,8 +24,12 @@ function LoginPage() {
         },
       });
 
+      // store token + user in context
       login(res.data.access, res.data.user);
-      setMessage("Logged in as " + res.data.user.username);
+
+      // redirect to home
+      navigate("/");
+
     } catch (err) {
       setMessage("Error: " + (err.response?.data?.error || "Login failed"));
     }
