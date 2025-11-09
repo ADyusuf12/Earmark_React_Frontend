@@ -31,12 +31,18 @@ function ListingCard({ listing }) {
       style={{ cursor: "pointer" }}
     >
       {listing.images?.length > 0 && (
-        <img
-          src={listing.images[0]}
-          alt={listing.title}
-          className="listing-image"
-        />
+        <div className="listing-images">
+          {listing.images.map((img, idx) => (
+            <img
+              key={idx}
+              src={img}
+              alt={`${listing.title} image ${idx + 1}`}
+              className="listing-image"
+            />
+          ))}
+        </div>
       )}
+
       <div className="listing-content">
         <h2 className="listing-title">{listing.title}</h2>
         <p className="listing-price">${listing.price}</p>
