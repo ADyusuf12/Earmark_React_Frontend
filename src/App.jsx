@@ -1,4 +1,6 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import OverviewPage from "./pages/dashboard/OverviewPage";
+import DashboardListingsPage from "./pages/dashboard/DashboardListingsPage"
 import LoginPage from "./pages/LoginPage";
 import RegisterPage from "./pages/RegisterPage";
 import Navbar from "./components/Navbar";
@@ -16,6 +18,8 @@ function App() {
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/" element={<HomePage />} />
+        <Route path="/dashboard/overview" element={<OverviewPage />} />
+        <Route path="/dashboard/listings" element={<DashboardListingsPage />} />
         <Route path="/user_profile" element={<UserProfilePage />} />
         <Route path="/listings" element={<ListingsPage />} />
         <Route path="/listings/:id" element={<ListingShowPage />} />

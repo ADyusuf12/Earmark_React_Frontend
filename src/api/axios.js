@@ -21,4 +21,30 @@ export const unsaveListing = (listingId, token) =>
     headers: { Authorization: `Bearer ${token}` },
   });
 
+// Dashboard Listings API
+export const getDashboardListings = (token) =>
+  api.get("/dashboard/listings", {
+    headers: { Authorization: `Bearer ${token}` },
+  });
+
+export const createDashboardListing = (formData, token) =>
+  api.post("/dashboard/listings", formData, {
+    headers: { Authorization: `Bearer ${token}`, "Content-Type": "multipart/form-data" },
+  });
+
+export const updateDashboardListing = (id, formData, token) =>
+  api.put(`/dashboard/listings/${id}`, formData, {
+    headers: { Authorization: `Bearer ${token}`, "Content-Type": "multipart/form-data" },
+  });
+
+export const deleteDashboardListing = (id, token) =>
+  api.delete(`/dashboard/listings/${id}`, {
+    headers: { Authorization: `Bearer ${token}` },
+  });
+
+// Dashboard Overview API
+export const getDashboardOverview = (token) =>
+  api.get("/dashboard/overview", {
+    headers: { Authorization: `Bearer ${token}` },
+  });
 export default api;

@@ -24,9 +24,15 @@ function ListingShowCard({ listing, saved, toggleSave, token, onUserClick }) {
 
       <div className="listing-show-images">
         {listing.images.map((img, idx) => (
-          <img key={idx} src={img} alt={`Listing ${idx}`} />
+          <img
+            key={idx}
+            src={img}
+            alt={`${listing.title} image ${idx + 1}`}
+            className="listing-show-image"
+          />
         ))}
       </div>
+
 
       <div className="listing-show-user">
         Posted by:{" "}
