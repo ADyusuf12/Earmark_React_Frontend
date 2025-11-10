@@ -24,12 +24,19 @@ function LoginPage() {
         },
       });
 
-      // store token + user in context
-      login(res.data.access, res.data.user);
+      // Extract JWT from response headers
+      const authHeader = res.headers["authorization"];
+      const token = authHeader ? authHeader.split(" ")[1] : null;
 
-      // redirect to home
-      navigate("/");
+      if (token) {
+        // store token + user in context
+        login(token, res.data.user);
 
+        // redirect to home
+        navigate("/");
+      } else {
+        setMessage("No token received from server");
+      }
     } catch (err) {
       setMessage("Error: " + (err.response?.data?.error || "Login failed"));
     }

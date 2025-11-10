@@ -1,13 +1,14 @@
 import axios from "axios";
 
-// Adjust this to match your Rails API base URL
+// Use Vite env variable or fallback to localhost
 const api = axios.create({
-  baseURL: "http://localhost:3000/api/v1",
+  baseURL: import.meta.env.VITE_API_BASE_URL || "http://localhost:3000/api/v1",
   headers: {
     "Content-Type": "application/json",
   },
 });
 
+// Saved Listings
 export const saveListing = (listingId, token) =>
   api.post("/saved_listings",
     { listing_id: listingId },
@@ -21,7 +22,7 @@ export const unsaveListing = (listingId, token) =>
     headers: { Authorization: `Bearer ${token}` },
   });
 
-// Dashboard Listings API
+// Dashboard Listings
 export const getDashboardListings = (token) =>
   api.get("/dashboard/listings", {
     headers: { Authorization: `Bearer ${token}` },
@@ -42,9 +43,10 @@ export const deleteDashboardListing = (id, token) =>
     headers: { Authorization: `Bearer ${token}` },
   });
 
-// Dashboard Overview API
+// Dashboard Overview
 export const getDashboardOverview = (token) =>
   api.get("/dashboard/overview", {
     headers: { Authorization: `Bearer ${token}` },
   });
+
 export default api;
