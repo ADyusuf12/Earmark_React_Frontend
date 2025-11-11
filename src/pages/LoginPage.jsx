@@ -1,4 +1,5 @@
 import { useState, useContext } from "react";
+import { useNavigate } from "react-router-dom";
 import api from "../api/axios";
 import { AuthContext } from "../context/AuthContext";
 import "../styles/auth.css";
@@ -7,6 +8,7 @@ function LoginPage() {
   const { login } = useContext(AuthContext);
   const [form, setForm] = useState({ email: "", password: "" });
   const [message, setMessage] = useState("");
+  const navigate = useNavigate(); // hook for navigation
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -22,8 +24,19 @@ function LoginPage() {
         },
       });
 
-      login(res.data.access, res.data.user);
-      setMessage("Logged in as " + res.data.user.username);
+      // Extract JWT from response headers
+      const authHeader = res.headers["authorization"];
+      const token = authHeader ? authHeader.split(" ")[1] : null;
+
+      if (token) {
+        // store token + user in context
+        login(token, res.data.user);
+
+        // redirect to home
+        navigate("/");
+      } else {
+        setMessage("No token received from server");
+      }
     } catch (err) {
       setMessage("Error: " + (err.response?.data?.error || "Login failed"));
     }

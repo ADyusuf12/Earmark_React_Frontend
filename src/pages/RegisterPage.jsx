@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import api from "../api/axios";
 import "../styles/auth.css";
 
@@ -11,6 +12,11 @@ function RegisterPage() {
     accountType: "customer",
   });
   const [message, setMessage] = useState("");
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    console.log("API base URL:", import.meta.env.VITE_API_BASE_URL);
+  }, []);
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -34,15 +40,25 @@ function RegisterPage() {
         },
       });
 
+      // Extract JWT from response headers
+      const authHeader = res.headers["authorization"];
+      const token = authHeader ? authHeader.split(" ")[1] : null;
+
       setMessage(
         "Registered as " +
-          res.data.user.username +
-          " (" +
-          res.data.profile.account_type +
-          ")"
+        res.data.user.username +
+        " (" +
+        res.data.profile.account_type +
+        ")"
       );
-      localStorage.setItem("token", res.data.access);
-      localStorage.setItem("user", JSON.stringify(res.data.user));
+
+      if (token) {
+        localStorage.setItem("token", token);
+        localStorage.setItem("user", JSON.stringify(res.data.user));
+      }
+
+      // Redirect to login page after successful registration
+      navigate("/login");
     } catch (err) {
       setMessage("Error: " + (err.response?.data?.error || "Registration failed"));
     }

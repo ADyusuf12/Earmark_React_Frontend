@@ -1,0 +1,88 @@
+@import './variables.css';
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  /* three zones: left, center, right */
+  align-items: center;
+  background: var(--white);
+  padding: 1rem 2rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.nav-left {
+  flex: 1;
+}
+
+.nav-logo {
+  font-family: 'Merriweather', serif;
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--primary-color);
+  text-decoration: none;
+}
+
+.nav-center {
+  flex: 2;
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+}
+
+.nav-center a {
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--neutral-dark);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.nav-center a:hover {
+  background: var(--accent-color);
+  transform: translateY(-2px);
+}
+
+.nav-right {
+  flex: 1;
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+}
+
+.nav-btn {
+  background: var(--primary-color);
+  color: var(--white);
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: background 0.2s ease, transform 0.15s ease;
+}
+
+.nav-btn:hover {
+  background: var(--accent-color);
+  transform: translateY(-2px);
+}
+
+.logout-btn {
+  background: var(--neutral-light);
+  color: var(--primary-color);
+  border: 1px solid var(--primary-color);
+}
+
+.logout-btn:hover {
+  background: var(--white);
+}
+
+@media (max-width: 768px) {
+  .nav-center {
+    gap: 1rem;
+  }
+
+  .nav-logo {
+    font-size: 1.2rem;
+  }
+}
