@@ -9,6 +9,7 @@ import UserProfilePage from "./pages/UserProfilePage";
 import PublicProfilePage from "./pages/PublicProfilePage";
 import ListingsPage from "./pages/ListingsPage";
 import ListingShowPage from "./pages/ListingShowPage";
+import SavedListingsPage from "./pages/SavedListingsPage";
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
         <Route path="/user_profile" element={<UserProfilePage />} />
         <Route path="/listings" element={<ListingsPage />} />
         <Route path="/listings/:id" element={<ListingShowPage />} />
+        <Route path="/saved" element={<SavedListingsPage />} />
         <Route path="/user_profiles/:id" element={<PublicProfilePage />} />
       </Routes>
     </Router>

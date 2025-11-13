@@ -22,6 +22,11 @@ export const unsaveListing = (listingId, token) =>
     headers: { Authorization: `Bearer ${token}` },
   });
 
+export const getSavedListings = (token) =>
+  api.get("/saved_listings", {
+    headers: { Authorization: `Bearer ${token}` },
+  });
+
 // Dashboard Listings
 export const getDashboardListings = (token) =>
   api.get("/dashboard/listings", {
