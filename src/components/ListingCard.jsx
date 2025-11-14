@@ -4,9 +4,9 @@ import { AuthContext } from "../context/AuthContext";
 import { saveListing, unsaveListing } from "../api/axios";
 import "../styles/listings.css";
 
-function ListingCard({ listing }) {
+function ListingCard({ listing, initiallySaved = false }) {
   const { token } = useContext(AuthContext);
-  const [saved, setSaved] = useState(false);
+  const [saved, setSaved] = useState(initiallySaved);
   const navigate = useNavigate();
 
   const toggleSave = async (e) => {
