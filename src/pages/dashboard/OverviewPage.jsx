@@ -8,6 +8,7 @@ function OverviewPage() {
   const { token } = useContext(AuthContext);
   const [stats, setStats] = useState(null);
   const [recentListings, setRecentListings] = useState([]);
+  const [error, setError] = useState(null);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -18,11 +19,13 @@ function OverviewPage() {
         setRecentListings(res.data.recent_listings);
       } catch (err) {
         console.error("Failed to fetch dashboard overview", err);
+        setError("Unable to load dashboard overview.");
       }
     };
     if (token) fetchOverview();
   }, [token]);
 
+  if (error) return <p>{error}</p>;
   if (!stats) return <p>Loading overview...</p>;
 
   return (
@@ -65,7 +68,6 @@ function OverviewPage() {
           </div>
         ))}
       </div>
-
 
       {/* Actions */}
       <div className="dashboard-actions">

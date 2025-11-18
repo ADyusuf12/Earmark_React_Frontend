@@ -36,20 +36,15 @@ function RegisterPage() {
           email: form.email,
           password: form.password,
           password_confirmation: form.passwordConfirmation,
-          account_type: form.accountType,
+          account_type: form.accountType, // ✅ enum value
         },
       });
 
-      // Extract JWT from response headers
       const authHeader = res.headers["authorization"];
       const token = authHeader ? authHeader.split(" ")[1] : null;
 
       setMessage(
-        "Registered as " +
-        res.data.user.username +
-        " (" +
-        res.data.profile.account_type +
-        ")"
+        `Registered as ${res.data.user.username} (${res.data.user.account_type})`
       );
 
       if (token) {
@@ -57,7 +52,6 @@ function RegisterPage() {
         localStorage.setItem("user", JSON.stringify(res.data.user));
       }
 
-      // Redirect to login page after successful registration
       navigate("/login");
     } catch (err) {
       setMessage("Error: " + (err.response?.data?.error || "Registration failed"));
@@ -108,8 +102,8 @@ function RegisterPage() {
           >
             <option value="customer">Customer</option>
             <option value="agent">Agent</option>
-            <option value="developer">Developer</option>
-            <option value="owner">Owner</option>
+            <option value="property_developer">Property Developer</option>
+            <option value="property_owner">Property Owner</option>
           </select>
           <button className="auth-button" type="submit">
             Register
