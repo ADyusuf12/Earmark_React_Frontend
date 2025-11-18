@@ -26,7 +26,8 @@ function UserProfilePage() {
     if (token) fetchProfile();
   }, [token]);
 
-  const handleChange = (e) => setForm({ ...form, [e.target.name]: e.target.value });
+  const handleChange = (e) =>
+    setForm({ ...form, [e.target.name]: e.target.value });
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -36,15 +37,22 @@ function UserProfilePage() {
         formData.append(`user_profile[${key}]`, form[key]);
       }
     }
+
     try {
       const res = await api.put("/user_profile", formData, {
-        headers: { Authorization: `Bearer ${token}`, "Content-Type": "multipart/form-data" },
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "multipart/form-data",
+        },
       });
       setData(res.data);
       setEditMode(false);
       setMessage("Profile updated successfully");
     } catch (err) {
-      setMessage("Update failed: " + (err.response?.data?.errors?.join(", ") || "Unknown error"));
+      setMessage(
+        "Update failed: " +
+        (err.response?.data?.errors?.join(", ") || "Unknown error")
+      );
     }
   };
 
@@ -63,6 +71,7 @@ function UserProfilePage() {
         handleChange={handleChange}
         handleSubmit={handleSubmit}
       />
+
       {message && <p>{message}</p>}
     </div>
   );

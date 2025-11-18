@@ -1,6 +1,23 @@
 import "../styles/profile.css";
 
-function ProfileCard({ user, profile, editable = false, editMode, setEditMode, form, handleChange, handleSubmit, setForm }) {
+const accountTypeLabels = {
+  customer: "Customer",
+  agent: "Agent",
+  property_developer: "Property Developer",
+  property_owner: "Property Owner",
+};
+
+function ProfileCard({
+  user,
+  profile,
+  editable = false,
+  editMode,
+  setEditMode,
+  form,
+  handleChange,
+  handleSubmit,
+  setForm,
+}) {
   return (
     <div className="profile-container">
       <h1>{editable ? "Your Profile" : `${user.username}'s Profile`}</h1>
@@ -18,7 +35,7 @@ function ProfileCard({ user, profile, editable = false, editMode, setEditMode, f
           <div className="profile-info">
             <p><strong>Username:</strong> {user.username}</p>
             <p><strong>Email:</strong> {user.email}</p>
-            <p><strong>Account Type:</strong> {profile.account_type}</p>
+            <p><strong>Account Type:</strong> {accountTypeLabels[user.account_type]}</p>
             <p><strong>First Name:</strong> {profile.first_name}</p>
             <p><strong>Last Name:</strong> {profile.last_name}</p>
             <p><strong>Phone:</strong> {profile.phone_number}</p>
@@ -39,12 +56,6 @@ function ProfileCard({ user, profile, editable = false, editMode, setEditMode, f
         </>
       ) : (
         <form className="profile-form" onSubmit={handleSubmit}>
-          <select name="account_type" value={form.account_type} onChange={handleChange}>
-            <option value="customer">Customer</option>
-            <option value="agent">Agent</option>
-            <option value="developer">Developer</option>
-            <option value="owner">Owner</option>
-          </select>
           <input
             name="first_name"
             placeholder="First Name"
@@ -79,7 +90,13 @@ function ProfileCard({ user, profile, editable = false, editMode, setEditMode, f
           />
           <div className="profile-buttons">
             <button className="save-btn" type="submit">Save</button>
-            <button className="cancel-btn" type="button" onClick={() => setEditMode(false)}>Cancel</button>
+            <button
+              className="cancel-btn"
+              type="button"
+              onClick={() => setEditMode(false)}
+            >
+              Cancel
+            </button>
           </div>
         </form>
       )}
